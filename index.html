@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aavirbhav - National Level IT Festival</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300 navbar" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold gradient-text">AAVIRBHAV</div>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-purple-400 transition-colors">HOME</a>
+                    <a href="#about" class="hover:text-purple-400 transition-colors">ABOUT</a>
+                    <a href="#events" class="hover:text-purple-400 transition-colors">EVENTS</a>
+                    <a href="#speakers" class="hover:text-purple-400 transition-colors">COMMITTEE</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden flex-col space-y-4 bg-slate-900 px-6 py-4 absolute top-16 left-0 w-full shadow-lg md:hidden">
+            <a href="#home" class="block text-gray-300 hover:text-purple-400">HOME</a>
+            <a href="#about" class="block text-gray-300 hover:text-purple-400">ABOUT</a>
+            <a href="#events" class="block text-gray-300 hover:text-purple-400">EVENTS</a>
+            <a href="#speakers" class="block text-gray-300 hover:text-purple-400">COMMITTEE</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <!-- Video Background -->
+        <video autoplay loop muted class="absolute inset-0 w-full h-full object-cover z-0 opacity-100">
+            <source src="assets/images/background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+            <div class="absolute top-20 left-20 w-64 h-64 bg-purple-500 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 w-64 h-64 bg-blue-500 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 text-center z-10">
+            <div class="mb-8">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
+                    <span class="gradient-text1" data-text="AAVIRBHAV 2.0">AAVIRBHAV 2.0</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                    Where Innovation Meets Technology. Join us for the most anticipated IT festival of the year featuring cutting-edge workshops, exciting competitions, and inspiring speakers.
+                </p>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-2xl"><a href="assets/forms/login.html">
+                    Register Now</a>
+                </button>
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="mt-16">
+                <div class="text-lg text-gray-400 mb-6">Event Starts In</div>
+                <div class="flex justify-center gap-0.5 md:gap-8">
+                    <div class="countdown-number text-center">
+                        <div class="text-3xl font-bold" id="days">00</div>
+                        <div class="text-sm text-gray-400">Days</div>
+                    </div>
+                    <div class="countdown-number text-center">
+                        <div class="text-3xl font-bold" id="hours">00</div>
+                        <div class="text-sm text-gray-400">Hours</div>
+                    </div>
+                    <div class="countdown-number text-center">
+                        <div class="text-3xl font-bold" id="minutes">00</div>
+                        <div class="text-sm text-gray-400">Minutes</div>
+                    </div>
+                    <div class="countdown-number text-center">
+                        <div class="text-3xl font-bold" id="seconds">00</div>
+                        <div class="text-sm text-gray-400">Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 ">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">About Aavirbhav</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">A premier platform for tech enthusiasts to showcase their skills, learn from experts, and network with industry leaders.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="assets/images/logo.png" alt="..." class="logo1 w-full h-auto object-contain">
+
+                </div>
+                
+                <div>
+                    <h3 class="text-3xl font-bold mb-6">Why Attend Aavirbhav?</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-lightbulb text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Innovative Workshops</h4>
+                                <p class="text-gray-400">Hands-on sessions on emerging technologies like AI, Blockchain, and Cloud Computing.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-trophy text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Exciting Competitions</h4>
+                                <p class="text-gray-400">Participate in hackathons, coding challenges, and design contests with amazing prizes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-users text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold mb-2">Networking Opportunities</h4>
+                                <p class="text-gray-400">Connect with industry professionals, recruiters, and like-minded tech enthusiasts.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--events-->
+    <!-- Events Section -->
+<section id="events" class="py-20 bg-slate-950">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4">Our Events</h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">Explore the exciting competitions and activities we have planned!</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <!-- Event Card -->
+      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+        <img src="assets/images/web designing 2.png" alt="Event 1" class="w-full h-58 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-4">Web Designing</h3>
+          <h6 class="text-14 mb-4">Emotion through imagery</h6>
+          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+            data-modal="modal1">View Rules</button>
+        </div>
+      </div>
+
+      <div id="modal1" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
+    <h3 class="text-2xl font-bold mb-4">Hackathon Rules</h3>
+    <ul class="list-disc list-inside text-gray-300 mb-6">
+      <li>Team size: 2–4 members</li>
+      <li>Duration: 24 hours</li>
+      <li>Original work only</li>
+      <li>Judging based on innovation & impact</li>
+    </ul>
+    <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+  </div>
+</div>
+
+      <!-- Event Card -->
+      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+        <img src="assets/images/event2.jpg" alt="Event 2" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-4">Coding Challenge</h3>
+          <h6 class="text-14 mb-4">Emotion through imagery</h6>
+          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+            data-modal="modal2">View Rules</button>
+        </div>
+      </div>
+
+      <div id="modal2" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
+    <h3 class="text-2xl font-bold mb-4">Coding Challenge Rules</h3>
+    <ul class="list-disc list-inside text-gray-300 mb-6">
+      <li>Individual participation</li>
+      <li>Duration: 2 hours</li>
+      <li>No plagiarism</li>
+      <li>Judged on accuracy & efficiency</li>
+    </ul>
+    <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+  </div>
+</div>
+
+      <!-- Event Card -->
+      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+        <img src="assets/images/event3.jpg" alt="Event 3" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-4">UI/UX Design</h3>
+          <h6 class="text-14 mb-4">Emotion through imagery</h6>
+          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+            data-modal="modal3">View Rules</button>
+        </div>
+      </div>
+
+      <div id="modal3" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
+    <h3 class="text-2xl font-bold mb-4">Coding Challenge Rules</h3>
+    <ul class="list-disc list-inside text-gray-300 mb-6">
+      <li>Individual participation</li>
+      <li>Duration: 2 hours</li>
+      <li>No plagiarism</li>
+      <li>Judged on accuracy & efficiency</li>
+    </ul>
+    <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+  </div>
+</div>
+
+      <!-- Event Card -->
+      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+        <img src="assets/images/event4.jpg" alt="Event 4" class="w-full h-48 object-cover">
+        <div class="p-6">
+          <h3 class="text-xl font-semibold mb-4">Quiz</h3>
+          <h6 class="text-14 mb-4">Emotion through imagery</h6>
+          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+            data-modal="modal4">View Rules</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Repeat similar for modal3 and modal4 -->
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-20 bg-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">ORGANIZING COMMITTEE</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Speaker 1 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/principal1.jpg" alt="Principal" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sr Dr M. Venissa A.C.</h3>
+                        <p class="text-purple-400 mb-3">Principal</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/vice-princi1.png" alt="vice Principal" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sr Dr Roopa Rodrigues A.C.</h3>
+                        <p class="text-purple-400 mb-3">Vice Principal</p>
+                       
+                    </div>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/adminstrator.jpg" alt="Adminstrator" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sr M. Carmel Rita A. C.</h3>
+                        <p class="text-purple-400 mb-3">Administrator</p>
+                       
+                    </div>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/pgco2.jpg" alt="PG Coordinator" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Sr Dr M. Vinora A.C.</h3>
+                        <p class="text-purple-400 mb-3">PG Co-Ordinator</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-20 bg-slate-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">STAFF CORDINATOR</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Speaker 1 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/Hod.jpg" alt="hod" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Mrs Panchajanyeswari</h3>
+                        <p class="text-purple-400 mb-3">Head Of Department</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/akshatha.jpg" alt="faculty" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Mrs Akshatha Shetty</h3>
+                        <p class="text-purple-400 mb-3">Assistant Professor</p>
+                       
+                    </div>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/sweedle.jpg" alt="Adminstrator" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Mrs Sweedle D'souza</h3>
+                        <p class="text-purple-400 mb-3">Assistant Professor</p>
+                       
+                    </div>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+                    <img src="assets/images/vaishnavi.jpg" alt="PG Coordinator" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Ms Vaishnavi Shenoy</h3>
+                        <p class="text-purple-400 mb-3">Assistant Professor</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Our Sponsors</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Proudly supported by industry leaders and innovators</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/7f070b8b-4e17-40a9-80c4-fe95accfe256.png" alt="Tech giant company logo with modern minimalist design" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/56b9efcd-7849-4d65-86a0-4ed91e7627bd.png" alt="Innovative startup company logo with vibrant colors" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b2f43e4f-f84c-40f8-aecc-caaf26ccaf1b.png" alt="Cloud services provider logo with clean typography" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c2d2a1f1-cd1c-427c-b0f3-6e2af055aa4b.png" alt="Investment firm logo with professional corporate design" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/25179c9d-5675-4e0c-a458-71a7f8754827.png" alt="Software development company logo with modern iconography" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/15ccff9c-bf09-4e6e-9002-cdf3218cd0ec.png" alt="AI research lab logo with futuristic design elements" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8223909e-8e7d-4467-92cd-f8a541a6e1b0.png" alt="Digital agency logo with creative typographic treatment" class="h-16 object-contain">
+                </div>
+                <div class="sponsor-logo">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2c10b4b0-004c-41eb-8367-81c73b0c3b9a.png" alt="Tech incubator logo with innovation-themed symbolism" class="h-16 object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="py-20">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">We Are Here</h2>
+                <div class="relative w-full overflow-hidden rounded-2xl" style="padding-top: 56.25%;">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.4889338211065!2d74.8566808748913!3d12.876251487430409!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba35a36eaaaaaab%3A0x2f73de40395a69a3!2sSt.%20Agnes%20College(Autonomous)!5e0!3m2!1sen!2sin!4v1756789293739!5m2!1sen!2sin"
+    class="absolute top-0 left-0 w-full h-full border-0 rounded-2xl"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+</div>
+            
+            
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-slate-950">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="text-2xl font-bold gradient-text mb-4">AAVIRBHAV</div>
+                    <p class="text-gray-400 mb-4">Where Innovation Meets Technology</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-purple-400 transition-colors">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/agnesia.aavirbhav/" class="text-gray-400 hover:text-purple-400 transition-colors">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-purple-400 transition-colors">HOME</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-purple-400 transition-colors">ABOUT</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-purple-400 transition-colors">EVENTS</a></li>
+                        <li><a href="#speakers" class="text-gray-400 hover:text-purple-400 transition-colors">COMMITTEE</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Contact Info</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-400"><i class="fas fa-map-marker-alt mr-2"></i> St Agnes College, Mangalore</li>
+                        <li class="text-gray-400"><i class="fas fa-phone mr-2"></i> +91 1234567890</li>
+                        <li class="text-gray-400"><i class="fas fa-envelope mr-2"></i> info@aavirbhav.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center">
+                <p class="text-gray-400">© 2024 Aavirbhav IT Festival. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
