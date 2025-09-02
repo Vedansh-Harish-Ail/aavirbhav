@@ -106,7 +106,7 @@ body {
 
 /* Fix event card image height */
 .card-hover img {
-  height: 300px; /* adjust as needed */
+  height: 400px; /* adjust as needed */
   object-fit: cover;
   width: 100%;
 }
