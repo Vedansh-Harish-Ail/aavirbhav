@@ -33,11 +33,15 @@ body {
 
 .gradient-text1 {
   font-family: "Samarkan";
-  color: #ea8c28;
+  color: rgba(128, 128, 128, 0.39);
   font-size: 125px;
   position: relative;
   display: inline-block;
-  animation: glitch 2s infinite;
+  animation: glitch 1s infinite;
+}
+
+.abt,.events,.committee,.staff,.sponser,.loc{
+  font-family: "Samarkan";
 }
 
 /* Duplicate layers for glitch */
@@ -49,7 +53,7 @@ body {
   left: 0;
   width: 100%;
   overflow: hidden;
-  color: #f09d43;
+  color: #fefbf9;
   background: transparent;
   clip: rect(0, 0, 0, 0);
 }
@@ -69,7 +73,7 @@ body {
 /* Top layer glitch */
 @keyframes glitchTop {
   0% { clip: rect(0, 9999px, 0, 0); }
-  10% { clip: rect(10px, 9999px, 50px, 0); }
+  10% { clip: rect(20px, 9999px, 50px, 0); }
   20% { clip: rect(85px, 9999px, 140px, 0); }
   30% { clip: rect(20px, 9999px, 80px, 0); }
   40% { clip: rect(30px, 9999px, 100px, 0); }
@@ -93,16 +97,51 @@ body {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
 }
 
+/* Ensure event card has consistent height */
 .card-hover {
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* all cards same height */
 }
 
-.card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    border-color: rgba(99, 102, 241, 0.3);
+/* Fix event card image height */
+.card-hover img {
+  height: 300px; /* adjust as needed */
+  object-fit: cover;
+  width: 100%;
 }
+
+/* Content section fills remaining space */
+.card-hover .p-6 {
+  flex: 1; /* take all space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* push button to bottom */
+  text-align: center; /* center headings + text */
+}
+
+/* Titles & subtitles aligned */
+.card-hover h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+.card-hover h6 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #cbd5e1;
+  margin-bottom: 1rem;
+  min-height: 2.5rem; /* reserve space so all align */
+}
+
+/* Button stays at bottom */
+.card-hover button {
+  align-self: center;
+  margin-top: auto;
+}
+
 
 .speaker-card {
     position: relative;
@@ -187,9 +226,10 @@ body {
   .countdown-number {
     min-width: 60px;
     padding: 0.5rem;
+    gap: 1.125rem;
   }
   .gradient-text1 {
-    font-size: 48px;
+    font-size: 60px;
   }
 }
 
@@ -200,4 +240,28 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Ensure uniform alignment inside event cards */
+.card-hover .p-6 {
+  text-align: center; /* Centers headings, subtext, and button */
+}
+
+.card-hover h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.card-hover h6 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #cbd5e1; /* softer gray for subtitle */
+  margin-bottom: 1rem;
+}
+
+.card-hover button {
+  display: inline-block;
+  margin-top: 0.5rem;
 }
