@@ -1,0 +1,10 @@
+{
+  "name": "example/razorpay-php-starter",
+  "description": "Minimal Razorpay integration in PHP (Orders + Checkout + Verification + Webhook)",
+  "type": "project",
+  "require": {
+    "razorpay/razorpay": "^2.9"
+  },
+  "minimum-stability": "stable",
+  "license": "MIT"
+}

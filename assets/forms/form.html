@@ -1,0 +1,61 @@
+<!-- login_register.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login & Registration</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <style>
+    body { background: #f7f7f7; }
+    .form-container { max-width: 400px; margin: 10vh auto; padding: 2rem; background: white; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <ul class="nav nav-tabs mb-3" id="formTabs">
+      <li class="nav-item"><a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login">Login</a></li>
+      <li class="nav-item"><a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register">Register</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="login">
+        <form method="POST" action="login.php">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="loginEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="loginPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+      <div class="tab-pane fade" id="register">
+        <form method="POST" action="register.php">
+          <div class="mb-3">
+            <label for="regUsername" class="form-label">Name</label>
+            <input type="text" class="form-control" name="username" id="regUsername" required>
+          </div>
+           <div class="mb-3">
+            <label for="clgname" class="form-label">Collage Name</label>
+            <input type="text" class="form-control" name="clgname" id="clgname" required>
+          </div>
+          <div class="mb-3">
+            <label for="regEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="regEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="regPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="regPassword" required>
+          </div>
+          <div class="mb-3">
+            <label for="regConfirm" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="confirm_password" id="regConfirm" required>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
