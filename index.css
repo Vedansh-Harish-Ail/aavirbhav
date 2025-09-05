@@ -34,15 +34,17 @@ body {
 
 .gradient-text1 {
   font-family: "Metal Mania", system-ui;
-  color: rgba(128, 128, 128, 0.39);
+  color: rgba(255, 255, 255, 0.39);
   font-size: 125px;
   position: relative;
   display: inline-block;
   animation: glitch 1s infinite;
+  letter-spacing: 5px;
 }
 
 .abt,.events,.committee,.staff,.sponser,.loc{
   font-family: "Metal Mania", system-ui;
+  letter-spacing: 5px;
 }
 
 /* Duplicate layers for glitch */
