@@ -42,7 +42,7 @@ body {
 }
 
 .abt,.events,.committee,.staff,.sponser,.loc{
-  font-family: "Samarkan";
+  font-family: "Metal Mania", system-ui;
 }
 
 /* Duplicate layers for glitch */
