@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 * {
     margin: 0;
@@ -26,15 +25,15 @@ body {
 }
 
 .gradient-text {
-    background:#ffffff;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  background:#ffffff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .gradient-text1 {
   font-family: "Metal Mania", system-ui;
-  color: rgba(255, 255, 255, 0.39);
+  color: rgb(255, 255, 255);
   font-size: 125px;
   position: relative;
   display: inline-block;
@@ -47,7 +46,6 @@ body {
   letter-spacing: 5px;
 }
 
-/* Duplicate layers for glitch */
 .gradient-text1::before,
 .gradient-text1::after {
   content: attr(data-text);
@@ -56,7 +54,7 @@ body {
   left: 0;
   width: 100%;
   overflow: hidden;
-  color: #fefbf9;
+ 
   background: transparent;
   clip: rect(0, 0, 0, 0);
 }
