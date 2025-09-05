@@ -47,19 +47,20 @@ body {
 }
 
 .gradient-text1::before,
-.gradient-text1::after {
+.gradient-text1::after 
+{
   content: attr(data-text);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   overflow: hidden;
- 
   background: transparent;
   clip: rect(0, 0, 0, 0);
 }
 
-.gradient-text1::before {
+.gradient-text1::before 
+{
   left: 2px;
   text-shadow: -2px 0 red;
   animation: glitchTop 1s infinite linear alternate-reverse;
