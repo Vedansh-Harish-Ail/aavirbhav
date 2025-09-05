@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.cdnfonts.com/css/samarkan');
+
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -32,7 +33,7 @@ body {
 }
 
 .gradient-text1 {
-  font-family: "Samarkan";
+  font-family: "Metal Mania", system-ui;
   color: rgba(128, 128, 128, 0.39);
   font-size: 125px;
   position: relative;
@@ -278,4 +279,8 @@ body {
 .open-events-wrapper .card-hover {
   width: 320px;          /* fixed card width */
   flex-shrink: 0;
+}
+
+.open{
+  width: px
 }
