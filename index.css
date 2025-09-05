@@ -265,3 +265,17 @@ body {
   display: inline-block;
   margin-top: 0.5rem;
 }
+
+/* Open Events - center two cards */
+.open-events-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;             /* space between cards */
+  flex-wrap: wrap;       /* stack on small screens */
+}
+
+.open-events-wrapper .card-hover {
+  width: 320px;          /* fixed card width */
+  flex-shrink: 0;
+}
