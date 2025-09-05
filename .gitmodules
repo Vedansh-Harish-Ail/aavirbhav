@@ -1,3 +1,7 @@
 [submodule "assets/razorpay/vendor/razorpay/razorpay"]
-	path = assets/razorpay/vendor/razorpay/razorpay
-	url = https://github.com/razorpay/razorpay-php.git
+    path = assets/razorpay/vendor/razorpay/razorpay
+    url = https://github.com/razorpay/razorpay-php.git
+
+[submodule "assets/razorpay/vendor/rmccue/requests"]
+    path = assets/razorpay/vendor/rmccue/requests
+    url = https://github.com/rmccue/Requests.git
