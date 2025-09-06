@@ -61,38 +61,84 @@
                 <p class="text-base sm:text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">   </p>
             </div>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-2xl"><a href="assets/forms/form.html">
-                    Login</a>
-                </button>
-                <button class="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-full font-semibold hover:from-purple-700 hover:to-blue-700 transition-all transform hover:scale-105 shadow-2xl"><a href="">
-                    Brochure</a>
-                </button>
-            </div>
-            
-            <!-- Countdown Timer -->
-            <div class="mt-16">
-                <div class="text-lg text-gray-400 mb-6">Event Starts In</div>
-                <div class="flex justify-center gap-0.5 md:gap-5">
-                    <div class="countdown-number text-center">
-                        <div class="text-3xl font-bold" id="days">00</div>
-                        <div class="text-sm text-gray-400">Days</div>
-                    </div>
-                    <div class="countdown-number text-center">
-                        <div class="text-3xl font-bold" id="hours">00</div>
-                        <div class="text-sm text-gray-400">Hours</div>
-                    </div>
-                    <div class="countdown-number text-center">
-                        <div class="text-3xl font-bold" id="minutes">00</div>
-                        <div class="text-sm text-gray-400">Minutes</div>
-                    </div>
-                    <div class="countdown-number text-center">
-                        <div class="text-3xl font-bold" id="seconds">00</div>
-                        <div class="text-sm text-gray-400">Seconds</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+           <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+  <!-- Login Button -->
+  <button class="bg-gradient-to-r from-[#3a1c1c] via-[#6b2d2d] to-[#2a1a1a] 
+                 text-[#f5e6d3] px-8 py-4 rounded-full font-semibold 
+               
+                 shadow-[0_0_15px_rgba(169,113,66,0.5)] 
+                 hover:from-[#5a2c2c] hover:via-[#7b3d3d] hover:to-[#3a2a2a] 
+                 hover:shadow-[0_0_25px_rgba(212,175,55,0.7)] 
+                 transition-all transform hover:scale-105">
+    <a href="assets/forms/form.html" class="block w-full h-full">Login</a>
+  </button>
+
+  <!-- Brochure Button -->
+  <button class="bg-gradient-to-r from-[#3a1c1c] via-[#6b2d2d] to-[#2a1a1a] 
+                 text-[#f5e6d3] px-8 py-4 rounded-full font-semibold 
+                 
+                 shadow-[0_0_15px_rgba(169,113,66,0.5)] 
+                 hover:from-[#5a2c2c] hover:via-[#7b3d3d] hover:to-[#3a2a2a] 
+                 hover:shadow-[0_0_25px_rgba(212,175,55,0.7)] 
+                 transition-all transform hover:scale-105">
+    <a href="" class="block w-full h-full">Brochure</a>
+  </button>
+</div>
+
+           <!-- Countdown Timer -->
+<div class="mt-16">
+  <div class="text-lg text-[#d4c4a8] mb-6 tracking-wide font-semibold">
+    Event Starts In
+  </div>
+  <div class="flex justify-center gap-2 md:gap-6">
+
+    <!-- Days -->
+    <div class="countdown-number text-center 
+                bg-gradient-to-br from-[#3a1c1c] via-[#5a2c2c] to-[#1a0f0f] 
+               
+                shadow-[0_0_15px_rgba(169,113,66,0.4)]
+                hover:shadow-[0_0_25px_rgba(212,175,55,0.7)]
+                transition-all">
+      <div class="text-4xl font-bold text-[#f5e6d3]" id="days">00</div>
+      <div class="text-sm text-[#c1a87d] uppercase">Days</div>
+    </div>
+
+    <!-- Hours -->
+    <div class="countdown-number text-center 
+                bg-gradient-to-br from-[#3a1c1c] via-[#5a2c2c] to-[#1a0f0f] 
+                
+                shadow-[0_0_15px_rgba(169,113,66,0.4)]
+                hover:shadow-[0_0_25px_rgba(212,175,55,0.7)]
+                transition-all">
+      <div class="text-4xl font-bold text-[#f5e6d3]" id="hours">00</div>
+      <div class="text-sm text-[#c1a87d] uppercase">Hours</div>
+    </div>
+
+    <!-- Minutes -->
+    <div class="countdown-number text-center 
+                bg-gradient-to-br from-[#3a1c1c] via-[#5a2c2c] to-[#1a0f0f] 
+                
+                shadow-[0_0_15px_rgba(169,113,66,0.4)]
+                hover:shadow-[0_0_25px_rgba(212,175,55,0.7)]
+                transition-all">
+      <div class="text-4xl font-bold text-[#f5e6d3]" id="minutes">00</div>
+      <div class="text-sm text-[#c1a87d] uppercase">Minutes</div>
+    </div>
+
+    <!-- Seconds -->
+    <div class="countdown-number text-center 
+                bg-gradient-to-br from-[#3a1c1c] via-[#5a2c2c] to-[#1a0f0f] 
+               
+                shadow-[0_0_15px_rgba(169,113,66,0.4)]
+                hover:shadow-[0_0_25px_rgba(212,175,55,0.7)]
+                transition-all">
+      <div class="text-4xl font-bold text-[#f5e6d3]" id="seconds">00</div>
+      <div class="text-sm text-[#c1a87d] uppercase">Seconds</div>
+    </div>
+
+  </div>
+</div>
+
     </section>
 
     <!-- About Section -->
