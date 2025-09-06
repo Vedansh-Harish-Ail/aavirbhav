@@ -1,10 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+
+}
+.main2 ,.main3,.spe
+{
+   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/bgimg.jpg);
+ background-size: cover;
+background-position: center;
+
+
+   
 }
 
 ::-webkit-scrollbar{
@@ -12,9 +23,10 @@
 }
 
 body {
-   background: linear-gradient(135deg, #000000 00%, #000000 100%);
+   
     color: #ffffff;
     overflow-x: hidden;
+    
 }
 
 .py-20{
@@ -46,7 +58,7 @@ body {
   letter-spacing: 5px;
 }
 
-.abt,.events,.committee,.staff,.sponser,.loc{
+.abt,.events,.committee,.staff,.sponser,.loc,.txt{
   font-family: "Metal Mania", system-ui;
   letter-spacing: 5px;
 }
