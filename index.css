@@ -23,6 +23,12 @@ body {
 .logo1{
     background-color: #000000;
 }
+.logo{
+  object: contain;
+  width:100vh;
+  height:auto;
+
+}
 
 .gradient-text {
   background:#ffffff;
