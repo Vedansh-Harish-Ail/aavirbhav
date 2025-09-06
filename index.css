@@ -14,8 +14,6 @@
  background-size: cover;
 background-position: center;
 
-
-   
 }
 
 ::-webkit-scrollbar{
@@ -213,6 +211,13 @@ body {
     .event-timeline > div {
         padding-left: 2rem;
     }
+    .main2 ,.main3,.spe
+{
+   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/bgimg.jpg);
+ background-size: cover;
+background-position: center;
+
+}
 }
 
 .sponsor-logo {
