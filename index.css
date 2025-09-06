@@ -13,7 +13,11 @@
    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/bgimg.jpg);
  background-size: cover;
 background-position: center;
+}
 
+.evt{
+  width: 70%;
+  margin-left: 80px;
 }
 
 ::-webkit-scrollbar{
@@ -217,6 +221,10 @@ body {
  background-size: cover;
 background-position: center;
 
+}
+.evt{
+  width: 100%;
+  margin-left: 0px;
 }
 }
 
