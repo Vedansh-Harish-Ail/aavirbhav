@@ -1,14 +1,1 @@
-# Enable rewrite engine
-RewriteEngine On
 
-# Remove .html extension from URLs
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^([^/]+)/?$ $1.html [L]
-
-# Redirect from /file.html to /file (avoid duplicate content)
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.html [NC]
-RewriteRule ^ %1 [R=301,L]
-
-# Set index.html as default
-DirectoryIndex index.html
