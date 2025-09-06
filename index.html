@@ -58,9 +58,7 @@
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">
                     <span class="gradient-text1" data-text="AAVIRBHAV">AAVIRBHAV</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                       us for the most anticipated IT festival of the year featuring cutting-edge workshops, exciting competitions.
-                </p>
+                <p class="text-base sm:text-lg md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">   </p>
             </div>
             
             <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -98,23 +96,43 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 ">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="abt text-4xl font-bold mb-4">About Aavirbhav</h2>
-                <p class="text-xl text-gray-300 max-w-3xl mx-auto">A premier platform for tech enthusiasts to showcase their skills, learn from experts, and network with industry leaders.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <img src="assets/images/logo.png" alt="..." class="logo1 w-full h-auto object-contain">
+    
+<section id="about" class="py-20 bg-gray-900">
+  <div class="container mx-auto px-6">
+    
+    <!-- Heading -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-4 text-white">About Aavirbhav</h2>
+    </div>
 
-                </div>
+    <!-- Content -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+      <!-- Left: Logo -->
+      <div class="flex justify-center">
+        <img src="assets/images/logo.png" alt="Aavirbhav Logo" class="logo">
+      </div>
+
+      <!-- Right: Text -->
+      <div>
+        <p class="text-lg text-gray-300 leading-relaxed">
+          Aavirbhav embodies the spirit of innovation and the rise of new ideas in technology. It is a platform for students to showcase their skills, creativity, and problem-solving abilities. The fest encourages participants to think beyond limits and design impactful solutions.
+          <br><br>
+          More than a competition, Aavirbhav celebrates collaboration, teamwork, and leadership. It provides young minds the opportunity to explore, experiment, and excel. Every event is designed to challenge participants and nurture real-world application of knowledge.
+          <br><br>
+          By bringing together talent and ideas, Aavirbhav creates an environment where possibilities are endless. It inspires curiosity, builds confidence, and promotes visionary thinking. The fest stands as a hub of growth, learning, and innovation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
                 
-                <div>
+                <!-----<div>
                     <h3 class="text-3xl font-bold mb-6">Why Attend Aavirbhav?</h3>
                     <div class="space-y-6">
-                        <div class="flex items-start space-x-4">
+                   >     <div class="flex items-start space-x-4">
                             <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
                                 <i class="fas fa-lightbulb text-white text-xl"></i>
                             </div>
@@ -144,7 +162,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>---->
             </div>
         </div>
     </section>
@@ -298,7 +316,7 @@
 
 <!-- Event Card -->
       <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
-        <img src="assets/images/photography.png " alt="Event 4" class="w-full h-58 object-cover">
+        <img src="assets/images/photo.png " alt="Event 4" class="w-full h-58 object-cover">
         <div class="p-6">
           <h3 class="text-xl font-semibold mb-4">Lights of the Seven</h3>
           <h6 class="text-14 mb-4">Emotion through imagery</h6>
@@ -381,78 +399,83 @@
   </div>
 </section>
 
-    <!-- Events Section -->
+   <!-- Open Events Section -->
 <section id="events1" class="open py-20 bg-slate-950">
   <div class="container mx-auto px-3">
     <div class="text-center mb-16">
       <h2 class="events text-4xl font-bold mb-2">Open Event</h2>
     </div>
 
-    <!-- Event Card -->
-          <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8" style="width: 978px;" >
-      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
-        <img src=" assets/images/tug of war.png" alt="Event 4" class="w-full h-58 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold mb-4">Valar Morghlis</h3>
-          <h6 class="text-14 mb-4">Strength in rope fate in grip</h6>
-          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
-            data-modal="modal6">View Rules</button>
+    <!-- Centered Grid -->
+    <div class="flex justify-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full">
+        
+        <!-- Event Card 1 -->
+        <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+          <img src="assets/images/tug1.png" alt="Event 4" class="w-full h-58 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-4">Valar Morghlis</h3>
+            <h6 class="text-14 mb-4">Strength in rope fate in grip</h6>
+            <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+              data-modal="modal6">View Rules</button>
+          </div>
         </div>
+
+        <!-- Modal 1 -->
+        <div id="modal6" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
+            <h3 class="text-2xl font-bold mb-4">Tug Of War Rules</h3>
+            <ul class="list-disc list-inside text-gray-300 mb-6">
+              <li>The combined team weight must not exceed 560 kg</li>
+              <li>Official team weighing (scaling) will be conducted on 18-09-2025, and must be completed before 10:00 AM</li>
+              <li>The tournament will follow a knockout format</li>
+              <li>The decisions made by the Organizers and Umpires shall be final and binding.</li>
+              <li>The competition is open to both Postgraduate (PG) and Undergraduate (UG) students.</li><br>
+              <p>For any queries Contact</p>
+              <i class="fa-solid fa-user"></i> Vineeth Raj : +917338689985<br>
+              <i class="fa-solid fa-user"></i> Preetham V Moolya: +916362893120
+            </ul>
+            <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+          </div>
+        </div>
+
+        <!-- Event Card 2 -->
+        <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
+          <img src="assets/images/corporate walk.png" alt="Event 4" class="w-full h-58 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-4">The Red Walk</h3>
+            <h6 class="text-14 mb-4">Step Into the Flames of Glory</h6>
+            <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
+              data-modal="modal7">View Rules</button>
+          </div>
+        </div>
+
+        <!-- Modal 2 -->
+        <div id="modal7" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
+            <h3 class="text-2xl font-bold mb-4">Corporate Walk Rules</h3>
+            <ul class="list-disc list-inside text-gray-300 mb-6">
+              <li>Participants must carry a valid College ID and PID</li>
+              <li>Minimum 7 and maximum 10 members, all from the same institution.</li>
+              <li>Attire must be business formals, reflecting professionalism.</li>
+              <li>Performance time is 8+2 minutes, including setup.</li>
+              <li>The use of water, fire, fireworks, party poppers, or hazardous props is strictly prohibited.</li>
+              <li>Teams must be present at the venue by 3:00 PM.</li>
+              <li>The track should be submitted to the event coordinator 1 day before the event.</li>
+              <li>The decisions of the judges and organizers are final and binding.</li>
+              <br>
+              <p>For any queries Contact</p>
+              <i class="fa-solid fa-user"></i> Shri Padma +916366048729<br>
+              <i class="fa-solid fa-user"></i> Manisha +918105181678
+            </ul>
+            <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
+          </div>
+        </div>
+
       </div>
-      <div id="modal6" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-  <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
-    <h3 class="text-2xl font-bold mb-4">Tug Of War Rules</h3>
-    <ul class="list-disc list-inside text-gray-300 mb-6">
-      <li>The combined team weight must not exceed 560 kg</li>
-<li>Official team weighing (scaling) will be conducted on 18-09-2025, and must be completed before 10:00 AM</li>
-<li> The tournament will follow a knockout format</li>
-<li>The decisions made by the Organizers and Umpires shall be final and binding. Any disputes or appeals will not be entertained beyond the umpire’s decision</li>
-<li> The competition is open to both Postgraduate (PG) and Undergraduate (UG) students.</li><br>
-<p>For any queries Contact</p>
-<i class="fa-solid fa-user"></i> Vineeth Raj : +917338689985<br>
-<i class="fa-solid fa-user"></i> Preetham V Moolya: +916362893120
-    </ul>
-    <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
-  </div>
-</div>
-
-<!-- Event Card -->
-      <div class="card-hover bg-slate-800 rounded-2xl overflow-hidden">
-        <img src="assets/images/corporate walk.png " alt="Event 4" class="w-full h-58 object-cover">
-        <div class="p-6">
-          <h3 class="text-xl font-semibold mb-4">The Red Walk</h3>
-          <h6 class="text-14 mb-4">Step Into the Flames of Glory</h6>
-          <button class="open-modal bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-purple-700 hover:to-blue-700 transition-all"
-            data-modal="modal7">View Rules</button>
-        </div>
-      </div>
-      <div id="modal7" class="modal hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-  <div class="bg-slate-900 p-8 rounded-2xl max-w-lg w-full relative">
-    <h3 class="text-2xl font-bold mb-4">Corporate Walk Rules</h3>
-    <ul class="list-disc list-inside text-gray-300 mb-6">
-<li>Participants must carry a valid College ID and PID</li>
-<li>Minimum 7 and maximum 10 members, all from the same institution.
-Attire must be business formals, reflecting professionalism </li>
-<li>Performance time is 8+2 minutes, including setup.  </li>
-<li> The use of water, fire, fireworks, party poppers, or hazardous props is strictly prohibited.</li>
-<li>Teams must be present at the venue by 3:00 PM.  </li>
-<li> The track should be submitted to the event coordinator 1 day before the event.</li>
-<li>The decisions of the judges and organizers are final and binding. </li>
-<br>
-<p>For any queries Contact</p>
-<i class="fa-solid fa-user"></i> Shri Padma +916366048729<br>
-<i class="fa-solid fa-user"></i> Manisha +918105181678
-    </ul>
-    <button class="close-modal absolute top-3 right-3 text-gray-400 hover:text-white">&times;</button>
-  </div>
-</div>
-</div>
-
-
-        </div>
+    </div>
   </div>
 </section>
-
 
 
 <!-- Repeat similar for modal3 and modal4 -->
@@ -510,7 +533,7 @@ Attire must be business formals, reflecting professionalism </li>
     <section id="speakers" class="py-20 bg-slate-900">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="staff text-4xl font-bold mb-4">STAFF CORDINATOR</h2>
+                <h2 class="staff text-4xl font-bold mb-4">STAFF CO-ORDINATOR</h2>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -553,6 +576,40 @@ Attire must be business formals, reflecting professionalism </li>
             </div>
         </div>
     </section>
+
+
+
+<!-- STUDENTS Section -->
+<section id="students" class="py-20 bg-slate-900">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="staff text-4xl font-bold mb-4">STUDENTS CO-ORDINATOR</h2>
+    </div>
+
+    <!-- Centered Grid -->
+    <div class="flex justify-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full">
+        
+        <!-- Student 1 -->
+        <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+          <img src="assets/images/deepak.jpg" alt="hod" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Mr. Deepak Acharya</h3>
+          </div>
+        </div>
+
+        <!-- Student 2 -->
+        <div class="speaker-card card-hover bg-slate-800 rounded-2xl overflow-hidden">
+          <img src="assets/images/rashmi.jpg" alt="faculty" class="w-full h-64 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold mb-2">Ms. Rashmi R Acharya</h3>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Sponsors Section -->
     <section id="sponsors" class="py-20">
@@ -650,7 +707,7 @@ Attire must be business formals, reflecting professionalism </li>
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 text-center">
-                <p class="text-gray-400">© 2024 Aavirbhav IT Festival. All rights reserved.</p>
+                <p class="text-gray-400">© 2025 Aavirbhav IT Festival. All rights reserved.</p>
             </div>
         </div>
     </footer>
