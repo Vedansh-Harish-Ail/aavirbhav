@@ -1,30 +1,33 @@
 <?php
-// Connect to database
-$conn = new mysqli('localhost', 'root', '', 'aavirbhav');
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+session_start();
+include 'db.php'; // Your DB connection file
 
-if (isset($_POST['username'], $_POST['email'], $_POST['password'], $_POST['confirm_password'])) {
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $clgname = trim($_POST['clgname']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $phone = $_POST['phone'];
+    $clgname = $_POST['clgname'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $confirm = $_POST['confirm_password'];
-    if ($password !== $confirm) {
-        echo "Passwords do not match!";
-        exit;
+    $confirm_password = $_POST['confirm_password'];
+
+    if ($password !== $confirm_password) {
+        die("Passwords do not match.");
     }
-    $hash = password_hash($password, PASSWORD_DEFAULT);
-    $chk = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $chk->bind_param("s", $email);
-    $chk->execute();
-    $chk->store_result();
-    if ($chk->num_rows > 0) {
-        echo '<script>alert("Email already exists!"); window.location.href = "form.html";</script>';
+
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare("INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
+
+    if ($stmt->execute()) {
+        $_SESSION['username'] = $username;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['clgname'] = $clgname;
+        echo "<script>alert('Registration Done');</script>";
+        header("Location: form.html");
+        exit();
     } else {
-        $stmt = $conn->prepare("INSERT INTO users (username, email,clgname, password) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $username, $email,$clgname, $hash);
-        $stmt->execute();
-        echo '<script>alert("Registration successful!...Please login"); window.location.href = "form.html";</script>';
+        echo "Error: " . $stmt->error;
     }
 }
 ?>

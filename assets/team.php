@@ -1,287 +1,148 @@
 <?php
-// db.php - Database Connection
-$conn = new mysqli("localhost", "root", "", "aavirbhav");
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+session_start();
+
+// Example: assuming you already set these during login
+// $_SESSION['login_user_id'], $_SESSION['login_user_name'], $_SESSION['login_user_phone']
+
+// Make sure name and phone are always stored for payment page
+if (!isset($_SESSION['user_name']) && isset($_SESSION['login_user_name'])) {
+    $_SESSION['user_name'] = $_SESSION['login_user_name'];
+}
+if (!isset($_SESSION['user_phone']) && isset($_SESSION['login_user_phone'])) {
+    $_SESSION['user_phone'] = $_SESSION['login_user_phone'];
 }
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $type = $_POST['type'];
-    $events = $_POST['events'];
-    $names = $_POST['name'];
-    $contacts = $_POST['contact'];
+    $type = $_POST['type'] ?? 'individual';
+    $events = $_POST['events'] ?? [];
+    $names1 = $_POST['name1'] ?? [];
+    $contacts1 = $_POST['contact1'] ?? [];
+    $names2 = $_POST['name2'] ?? [];
+    $contacts2 = $_POST['contact2'] ?? [];
+
+    // Pricing rules
+    $eventPrices = [
+        "Tug of War" => 800,
+        "Corporate Walk" => 1000
+    ];
+    $defaultPrice = 100;
+
+    // Auto-upgrade to group if more than 3 events
+    if ($type === "individual" && count($events) > 3) {
+        $type = "group";
+    }
 
     // Calculate amount
-    if ($type == "individual") {
-        $amount = count($events) * 100;
+    if ($type === "group") {
+        $amount = 1600;
     } else {
-        $amount = 1500;
+        $amount = 0;
+        foreach ($events as $event) {
+            $amount += $eventPrices[$event] ?? $defaultPrice;
+        }
     }
 
-    // Insert each participant
-    for ($i = 0; $i < count($events); $i++) {
-        $event = $events[$i];
-        $pname = $names[$i];
-        $pcontact = $contacts[$i];
+    // Store in session for payment
+    $_SESSION['registration'] = [
+        'type' => $type,
+        'events' => $events,
+        'names1' => $names1,
+        'contacts1' => $contacts1,
+        'names2' => $names2,
+        'contacts2' => $contacts2,
+        'amount' => $amount
+    ];
 
-        $stmt = $conn->prepare("INSERT INTO registrations (type, event, name, contact, amount) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $type, $event, $pname, $pcontact, $amount);
-        $stmt->execute();
-    }
-
-    echo "<script>alert('Registration successful!');</script>";
+    // Redirect to payment
+    header("Location: razorpay/index.php");
+    exit;
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Event Registration</title>
     <style>
-/* ===== Base Reset & Variables ===== */
-:root {
-  --bg: #0b1220;
-  --panel: #111a2b;
-  --muted: #c7d2fe;
-  --text: #e5e7eb;
-  --accent: #7c3aed;
-  --accent-2: #22d3ee;
-  --border: #2a3550;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --radius: 16px;
-  --shadow: 0 10px 25px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
-}
-
-* { box-sizing: border-box; }
-html, body { margin:0; padding:0; }
-body {
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
-  line-height: 1.6;
-  color: var(--text);
-  background: radial-gradient(1200px 800px at 15% -10%, rgba(124,58,237,.25), transparent 60%),
-              radial-gradient(1000px 700px at 110% 20%, rgba(34,211,238,.2), transparent 60%),
-              var(--bg);
-  min-height: 100vh;
-  padding: 40px 16px;
-  display: grid;
-  place-items: start center;
-}
-
-/* ===== Page Shell ===== */
-main, form {
-  width: 100%;
-  max-width: 980px;
-}
-
-.card {
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px;
-}
-
-h1, h2, h3 {
-  line-height: 1.2;
-  margin: 0 0 12px;
-}
-h2 {
-  font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem);
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  letter-spacing: .2px;
-  margin-bottom: 20px;
-}
-
-/* ===== Controls ===== */
-label { display: inline-flex; align-items: center; gap: 10px; }
-input[type="text"], input[type="tel"], input[type="number"], select {
-  width: 100%;
-  appearance: none;
-  background: #0e1627;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 12px;
-  outline: none;
-  transition: border-color .2s, box-shadow .2s;
-}
-input:focus, select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(124,58,237,.25);
-}
-
-input[type="radio"], input[type="checkbox"] {
-  width: 18px; height: 18px;
-  accent-color: var(--accent);
-}
-
-/* ===== Layout Helpers ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
-}
-.row { display: flex; gap: 12px; flex-wrap: wrap; }
-.hidden { display: none; }
-
-/* ===== Event List ===== */
-.event-list {
-  margin: 16px 0;
-}
-.event-list > label,
-.event-list > div,
-.event-list > .option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  background: #0f182a;
-  transition: transform .12s ease, border-color .2s ease, background .2s ease;
-  cursor: pointer;
-}
-.event-list > label:hover,
-.event-list > div:hover,
-.event-list > .option:hover {
-  transform: translateY(-1px);
-  border-color: rgba(124,58,237,.6);
-  background: #111c30;
-}
-
-/* ===== Participant Box ===== */
-.participant-box, .member, .panel {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: #0e1729;
-  padding: 16px;
-  margin: 12px 0;
-  box-shadow: var(--shadow);
-}
-.participant-box h4 { margin: 0 0 10px; font-weight: 600; }
-.participant-box .row > label { flex: 1 1 240px; }
-
-/* ===== Buttons ===== */
-button, .btn {
-  appearance: none;
-  border: none;
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-weight: 600;
-  cursor: pointer;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  color: white;
-  box-shadow: var(--shadow);
-  transition: transform .12s ease, filter .15s ease, opacity .2s ease;
-}
-button:hover { transform: translateY(-1px); filter: brightness(1.05); }
-button:active { transform: translateY(0); filter: brightness(.96); }
-button[disabled] { opacity: .6; cursor: not-allowed; }
-
-/* Secondary Button */
-.btn-secondary {
-  background: #15213a;
-  color: var(--text);
-  border: 1px solid var(--border);
-}
-
-/* ===== Info/Status ===== */
-#amountInfo {
-  margin-top: 12px;
-  font-size: .95rem;
-  opacity: .9;
-}
-.success { color: var(--success); }
-.error { color: var(--danger); }
-
-/* ===== Form Sections ===== */
-.section {
-  margin: 20px 0;
-}
-.section > .title {
-  font-size: 1.1rem;
-  margin-bottom: 8px;
-  opacity: .9;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 560px) {
-  body { padding: 24px 12px; }
-  .row { gap: 8px; }
-  button, .btn { width: 100%; }
-}
-</style>
-    <script>
-        function toggleEvents(type) {
-            document.getElementById("eventsDiv").style.display = "block";
-            document.getElementById("detailsDiv").innerHTML = "";
-            document.getElementById("eventType").value = type;
-            document.getElementById("amountInfo").innerText = 
-                type === 'individual' ? "Each event costs ₹100." : "Fixed cost ₹1500 for all events.";
-        }
-
-        function showDetailsForm() {
-            let selected = document.querySelectorAll("input[name='events[]']:checked");
-            let detailsDiv = document.getElementById("detailsDiv");
-            detailsDiv.innerHTML = ""; // reset
-
-            if (selected.length === 0) {
-                alert("Please select at least one event");
-                return;
-            }
-
-            selected.forEach((checkbox, index) => {
-                let div = document.createElement("div");
-                div.className = "participant-box";
-                div.innerHTML = `
-                    <h4>${checkbox.value}</h4>
-                    <label>Name: <input type="text" name="name[]" required></label><br><br>
-                    <label>Contact: <input type="text" name="contact[]" required></label>
-                `;
-                detailsDiv.appendChild(div);
-            });
-
-            detailsDiv.style.display = "block";
-            document.getElementById("submitBtn").style.display = "block";
-        }
-    </script>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { background: #fff; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; }
+        .event-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .event-item { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; }
+        .participant-fields { margin: 10px 0; padding: 10px; border: 1px dashed #ccc; }
+        .amount-box { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    </style>
 </head>
 <body>
-    <h2>Event Registration</h2>
+<div class="container">
+    <h2>Register for Events</h2>
+    <form method="POST" id="eventForm">
+        <label><input type="radio" name="type" value="individual" checked> Individual</label>
+        <label><input type="radio" name="type" value="group"> Group</label>
 
-    <form method="POST">
-        <label>
-            <input type="radio" name="chooseType" onclick="toggleEvents('individual')"> Individual
-        </label>
-        <label>
-            <input type="radio" name="chooseType" onclick="toggleEvents('group')"> Group
-        </label>
-
-        <div id="eventsDiv" class="hidden">
-            <h3>Select Events</h3>
-            <p id="amountInfo"></p>
-            <div class="event-list">
-                <?php 
-                for ($i=1; $i<=10; $i++) {
-                    echo "<label><input type='checkbox' name='events[]' value='Event $i'> Event $i</label><br>";
-                }
-                ?>
-            </div>
-            <button type="button" onclick="showDetailsForm()">Next</button>
+        <div class="event-list">
+            <label class="event-item"><input type="checkbox" name="events[]" value="Singing"> Singing</label>
+            <label class="event-item"><input type="checkbox" name="events[]" value="Dancing"> Dancing</label>
+            <label class="event-item"><input type="checkbox" name="events[]" value="Drama"> Drama</label>
+            <label class="event-item"><input type="checkbox" name="events[]" value="Tug of War"> Tug of War</label>
+            <label class="event-item"><input type="checkbox" name="events[]" value="Corporate Walk"> Corporate Walk</label>
         </div>
 
-        <input type="hidden" id="eventType" name="type">
+        <div id="participantsContainer"></div>
+        <div class="amount-box">Total Amount: ₹<span id="totalAmount">0</span></div>
 
-        <div id="detailsDiv" class="hidden"></div>
-
-        <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+        <button type="submit">Proceed to Payment</button>
     </form>
+</div>
+
+<script>
+    const eventPrices = {
+        "Singing": 100,
+        "Dancing": 100,
+        "Drama": 100,
+        "Tug of War": 800,
+        "Corporate Walk": 1000
+    };
+    const maxIndividualEvents = 3;
+
+    function updateForm() {
+        let selectedType = document.querySelector('input[name="type"]:checked').value;
+        let selectedEvents = Array.from(document.querySelectorAll('input[name="events[]"]:checked')).map(e => e.value);
+
+        if (selectedType === "individual" && selectedEvents.length > maxIndividualEvents) {
+            document.querySelector('input[value="group"]').checked = true;
+            selectedType = "group";
+        }
+
+        const container = document.getElementById('participantsContainer');
+        container.innerHTML = '';
+
+        selectedEvents.forEach(event => {
+            let div = document.createElement('div');
+            div.className = 'participant-fields';
+            div.innerHTML = `
+                <h4>${event}</h4>
+                <input type="text" name="name1[]" placeholder="Participant 1 Name" required>
+                <input type="text" name="contact1[]" placeholder="Participant 1 Contact" required>
+                <input type="text" name="name2[]" placeholder="Participant 2 Name" required>
+                <input type="text" name="contact2[]" placeholder="Participant 2 Contact" required>
+            `;
+            container.appendChild(div);
+        });
+
+        let amount = 0;
+        if (selectedType === "group") {
+            amount = 1600;
+        } else {
+            selectedEvents.forEach(event => {
+                amount += eventPrices[event] || 0;
+            });
+        }
+        document.getElementById('totalAmount').textContent = amount;
+    }
+
+    document.querySelectorAll('input[name="events[]"]').forEach(cb => cb.addEventListener('change', updateForm));
+    document.querySelectorAll('input[name="type"]').forEach(radio => radio.addEventListener('change', updateForm));
+</script>
 </body>
 </html>

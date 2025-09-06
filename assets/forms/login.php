@@ -1,26 +1,34 @@
 <?php
 session_start();
-$conn = new mysqli('localhost', 'root', '', 'aavirbhav');
-if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
+include 'db.php';
 
-if (isset($_POST['email'], $_POST['password'])) {
-    $email = trim($_POST['email']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
     $password = $_POST['password'];
-    $stmt = $conn->prepare("SELECT id, password FROM users WHERE email = ?");
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id, $hash);
-        $stmt->fetch();
-        if (password_verify($password, $hash)) {
-            $_SESSION['userid'] = $id;
-            echo '<script>alert("Login successful!"); window.location.href = "../team.php";</script>';
-        } else {
-            echo "Invalid password!";
-        }
+
+    $stmt = $conn->prepare("SELECT username, number, clgname, password FROM users WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows > 0) {
+    // This must match SELECT field count
+    $stmt->bind_result($username, $phone, $clgname, $hashed_password);
+    $stmt->fetch();
+
+    if (password_verify($password, $hashed_password)) {
+        $_SESSION['username'] = $username;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['clgname'] = $clgname;
+
+        echo "<script>alert('Login Successful'); window.location.href='../team.php';</script>";
+        exit();
     } else {
-        echo "User not found!";
+        echo "<script>alert('Invalid Password');</script>";
     }
+} else {
+    echo "<script>alert('No User Found');</script>";
+}
+
 }
 ?>
