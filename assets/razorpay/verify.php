@@ -26,6 +26,11 @@ try {
         'razorpay_signature'  => $razorpaySignature
     ];
     $api->utility->verifyPaymentSignature($attributes); // throws on failure
+    // Fetch payment details from Razorpay
+    $payment = $api->payment->fetch($razorpayPaymentId);
+    $amount = $payment->amount / 100;
+    $currency = $payment->currency;
+
 
     // 3) Save payment + registration to DB
     $amountRupees = isset($_SESSION['registration']['amount']) ? (int)$_SESSION['registration']['amount'] : 0;
@@ -33,23 +38,40 @@ try {
     $contact = $_SESSION['registration']['contact'] ?? '';
     $email   = $_SESSION['registration']['email']   ?? '';
 
-    $stmt = $conn->prepare("INSERT INTO payments (order_id, payment_id, signature, amount, currency, name, contact, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $currency = CURRENCY;
-    $stmt->bind_param("sssissss", $razorpayOrderId, $razorpayPaymentId, $razorpaySignature, $amountRupees, $currency, $name, $contact, $email);
-    $stmt->execute();
-    $paymentRowId = $stmt->insert_id;
-    $stmt->close();
+$stmt = $conn->prepare("INSERT INTO payments 
+(order_id, payment_id, signature, amount, currency, name, contact, email, name1, contact1) 
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$stmt->bind_param(
+    "ssssssssss",
+    $razorpayOrderId,
+    $razorpayPaymentId,
+    $razorpaySignature,
+    $amount,
+    $currency,
+    $_SESSION['team_name'],
+    $_SESSION['team_contact'],
+    $_SESSION['team_email'],
+    $_SESSION['team_name1'],
+    $_SESSION['team_contact1']
+);
+$stmt->execute();
+$stmt->close();
+
 
     // Optional: Save event-specific registrations
     if (!empty($_SESSION['registration']['events']) && is_array($_SESSION['registration']['events'])) {
-        $type = $_SESSION['registration']['type'] ?? 'single';
-        foreach ($_SESSION['registration']['events'] as $ev) {
-            $stmt = $conn->prepare("INSERT INTO registrations (type, event, name, contact, email, amount, payment_id, order_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssi ss", $type, $ev, $name, $contact, $email, $amountRupees, $razorpayPaymentId, $razorpayOrderId);
-            $stmt->execute();
-            $stmt->close();
-        }
+    $type = $_SESSION['registration']['type'] ?? 'single';
+    foreach ($_SESSION['registration']['events'] as $ev) {
+        $stmt = $conn->prepare(
+            "INSERT INTO registrations (type, event, name, contact, email, amount, payment_id, order_id)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param("sssssiss", $type, $ev, $name, $contact, $email, $amountRupees, $razorpayPaymentId, $razorpayOrderId);
+        $stmt->execute();
+        $stmt->close();
     }
+}
+    
 
     // 4) Clear registration session after success
     unset($_SESSION['registration']);

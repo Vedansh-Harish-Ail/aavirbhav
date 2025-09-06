@@ -24,10 +24,10 @@ if ($stmt->num_rows > 0) {
         echo "<script>alert('Login Successful'); window.location.href='../team.php';</script>";
         exit();
     } else {
-        echo "<script>alert('Invalid Password');</script>";
+        echo "<script>alert('Invalid Password');window.location.href='form.html';</script>";
     }
 } else {
-    echo "<script>alert('No User Found');</script>";
+    echo "<script>alert('No User Found');window.location.href='form.html';</script>";
 }
 
 }
