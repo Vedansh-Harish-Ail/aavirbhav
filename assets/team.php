@@ -1,40 +1,43 @@
 <?php
 session_start();
 
-// Example: assuming you already set these during login
-// $_SESSION['login_user_id'], $_SESSION['login_user_name'], $_SESSION['login_user_phone']
+// Redirect to login if not logged in
+if (!isset($_SESSION['username'])) {
+    header("Location: form.html");
+    exit();
+}
 
-// Make sure name and phone are always stored for payment page
-if (!isset($_SESSION['user_name']) && isset($_SESSION['login_user_name'])) {
-    $_SESSION['user_name'] = $_SESSION['login_user_name'];
-}
-if (!isset($_SESSION['user_phone']) && isset($_SESSION['login_user_phone'])) {
-    $_SESSION['user_phone'] = $_SESSION['login_user_phone'];
-}
+// Pricing rules
+$eventPrices = [
+    "Tug of War" => 800,
+    "Corporate Walk" => 1000,
+    "Singing" => 500,
+    "Dancing" => 700,
+    "Drama" => 600,
+    "Painting" => 400,
+    "Quiz" => 300,
+    "Debate" => 350,
+    "Photography" => 450,
+    "Cooking" => 550,
+    "Coding Challenge" => 900,
+    "Startup Pitch" => 1200
+];
+$defaultPrice = 100;
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $type = $_POST['type'] ?? 'individual';
     $events = $_POST['events'] ?? [];
-    $names1 = $_POST['name1'] ?? [];
-    $contacts1 = $_POST['contact1'] ?? [];
-    $names2 = $_POST['name2'] ?? [];
-    $contacts2 = $_POST['contact2'] ?? [];
+    $names = $_POST['participant_name'] ?? [];
+    $contacts = $_POST['participant_contact'] ?? [];
 
-    // Pricing rules
-    $eventPrices = [
-        "Tug of War" => 800,
-        "Corporate Walk" => 1000
-    ];
-    $defaultPrice = 100;
-
-    // Auto-upgrade to group if more than 3 events
-    if ($type === "individual" && count($events) > 3) {
-        $type = "group";
+    // Auto-upgrade to team if more than 2 events in individual mode
+    if ($type === "individual" && count($events) > 2) {
+        $type = "team";
     }
 
     // Calculate amount
-    if ($type === "group") {
+    if ($type === "team") {
         $amount = 1600;
     } else {
         $amount = 0;
@@ -43,106 +46,159 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Store in session for payment
+    // Store in session
     $_SESSION['registration'] = [
         'type' => $type,
         'events' => $events,
-        'names1' => $names1,
-        'contacts1' => $contacts1,
-        'names2' => $names2,
-        'contacts2' => $contacts2,
+        'names' => $names,
+        'contacts' => $contacts,
         'amount' => $amount
     ];
 
-    // Redirect to payment
     header("Location: razorpay/index.php");
-    exit;
+    exit();
 }
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Event Registration</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
-        .container { background: #fff; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; }
-        .event-list { display: flex; flex-wrap: wrap; gap: 10px; }
-        .event-item { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; }
-        .participant-fields { margin: 10px 0; padding: 10px; border: 1px dashed #ccc; }
-        .amount-box { margin-top: 20px; font-size: 18px; font-weight: bold; }
-    </style>
+    <meta charset="UTF-8">
+    <title>Team Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <h2>Register for Events</h2>
-    <form method="POST" id="eventForm">
-        <label><input type="radio" name="type" value="individual" checked> Individual</label>
-        <label><input type="radio" name="type" value="group"> Group</label>
 
-        <div class="event-list">
-            <label class="event-item"><input type="checkbox" name="events[]" value="Singing"> Singing</label>
-            <label class="event-item"><input type="checkbox" name="events[]" value="Dancing"> Dancing</label>
-            <label class="event-item"><input type="checkbox" name="events[]" value="Drama"> Drama</label>
-            <label class="event-item"><input type="checkbox" name="events[]" value="Tug of War"> Tug of War</label>
-            <label class="event-item"><input type="checkbox" name="events[]" value="Corporate Walk"> Corporate Walk</label>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Aavirbhav - Events</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item me-3 text-white">
+          Hello, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>
+        </li>
+        <li class="nav-item">
+          <a href="forms/logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Register Your Team</h2>
+    <form method="POST" id="eventForm" novalidate>
+        <div class="mb-3">
+            <label class="form-label">Registration Type</label>
+            <select class="form-select" name="type" id="regType" required>
+                <option value="individual">Individual</option>
+                <option value="team">Team</option>
+            </select>
         </div>
 
-        <div id="participantsContainer"></div>
-        <div class="amount-box">Total Amount: ₹<span id="totalAmount">0</span></div>
+        <div class="mb-3">
+            <label class="form-label">Select Events</label>
+            <?php foreach ($eventPrices as $event => $price): ?>
+                <div class="form-check">
+                    <input class="form-check-input event-checkbox" type="checkbox" name="events[]" value="<?php echo htmlspecialchars($event); ?>" data-price="<?php echo $price; ?>" id="<?php echo md5($event); ?>">
+                    <label class="form-check-label" for="<?php echo md5($event); ?>">
+                        <?php echo htmlspecialchars($event) . " (₹" . $price . ")"; ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
-        <button type="submit">Proceed to Payment</button>
+        <div id="participantFields"></div>
+
+        <div class="mt-3">
+            <h5>Total Price: ₹<span id="totalPrice">0</span></h5>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Proceed to Payment</button>
     </form>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const eventPrices = {
-        "Singing": 100,
-        "Dancing": 100,
-        "Drama": 100,
-        "Tug of War": 800,
-        "Corporate Walk": 1000
-    };
-    const maxIndividualEvents = 3;
+document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".event-checkbox");
+    const participantFields = document.getElementById("participantFields");
+    const regType = document.getElementById("regType");
+    const totalPriceEl = document.getElementById("totalPrice");
 
-    function updateForm() {
-        let selectedType = document.querySelector('input[name="type"]:checked').value;
-        let selectedEvents = Array.from(document.querySelectorAll('input[name="events[]"]:checked')).map(e => e.value);
+    function updateParticipantsAndPrice() {
+        participantFields.innerHTML = "";
+        let selectedCount = 0;
+        let totalPrice = 0;
 
-        if (selectedType === "individual" && selectedEvents.length > maxIndividualEvents) {
-            document.querySelector('input[value="group"]').checked = true;
-            selectedType = "group";
-        }
+        checkboxes.forEach(cb => {
+            if (cb.checked) {
+                selectedCount++;
+                const eventName = cb.value;
+                const eventPrice = parseInt(cb.getAttribute("data-price")) || 0;
+                totalPrice += eventPrice;
 
-        const container = document.getElementById('participantsContainer');
-        container.innerHTML = '';
-
-        selectedEvents.forEach(event => {
-            let div = document.createElement('div');
-            div.className = 'participant-fields';
-            div.innerHTML = `
-                <h4>${event}</h4>
-                <input type="text" name="name1[]" placeholder="Participant 1 Name" required>
-                <input type="text" name="contact1[]" placeholder="Participant 1 Contact" required>
-                <input type="text" name="name2[]" placeholder="Participant 2 Name" required>
-                <input type="text" name="contact2[]" placeholder="Participant 2 Contact" required>
-            `;
-            container.appendChild(div);
+                participantFields.innerHTML += `
+                    <div class="border rounded p-3 mb-3">
+                        <h5>${eventName} - Participants</h5>
+                        <div class="row g-2">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control"
+                                    placeholder="Name 1"
+                                    name="participant_name[${eventName}][]"
+                                    pattern="[A-Za-z\\s]{3,}"
+                                    title="At least 3 letters, alphabets only" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="tel" class="form-control"
+                                    placeholder="Number 1"
+                                    name="participant_contact[${eventName}][]"
+                                    pattern="\\d{10}"
+                                    title="Enter 10 digit number" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control"
+                                    placeholder="Name 2"
+                                    name="participant_name[${eventName}][]"
+                                    pattern="[A-Za-z\\s]{3,}"
+                                    title="At least 3 letters, alphabets only" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="tel" class="form-control"
+                                    placeholder="Number 2"
+                                    name="participant_contact[${eventName}][]"
+                                    pattern="\\d{10}"
+                                    title="Enter 10 digit number" required>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
         });
 
-        let amount = 0;
-        if (selectedType === "group") {
-            amount = 1600;
-        } else {
-            selectedEvents.forEach(event => {
-                amount += eventPrices[event] || 0;
-            });
+        // Auto-switch to team if more than 2 events in individual mode
+        if (regType.value === "individual" && selectedCount > 2) {
+            regType.value = "team";
         }
-        document.getElementById('totalAmount').textContent = amount;
+
+        // If team, price is fixed
+        if (regType.value === "team") {
+            totalPrice = 1600;
+        }
+
+        totalPriceEl.textContent = totalPrice;
     }
 
-    document.querySelectorAll('input[name="events[]"]').forEach(cb => cb.addEventListener('change', updateForm));
-    document.querySelectorAll('input[name="type"]').forEach(radio => radio.addEventListener('change', updateForm));
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", updateParticipantsAndPrice);
+    });
+
+    regType.addEventListener("change", updateParticipantsAndPrice);
+});
 </script>
 </body>
 </html>

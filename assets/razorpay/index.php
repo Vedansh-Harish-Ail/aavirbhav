@@ -1,134 +1,126 @@
 <?php
-require __DIR__ . '/config.php';
 session_start();
 
-/*
-  This page expects you have already set registration details in session, e.g.:
-
-  $_SESSION['registration'] = [
-      'amount'  => 100,              // rupees (integer)
-      'name'    => 'John Doe',       // payer's name (optional)
-      'contact' => '9876543210',     // phone (optional)
-      'email'   => 'john@mail.com',  // email (optional)
-      // any other fields you want to save after payment…
-  ];
-
-  Do NOT hardcode the amount here.
-*/
-
-$reg = $_SESSION['registration'] ?? [];
-$amount = isset($reg['amount']) ? (int)$reg['amount'] : 0;
-$userName = $reg['name']    ?? 'Guest User';
-$userContact = $reg['contact'] ?? '';
-$userEmail   = $reg['email']   ?? '';
-
-if ($amount <= 0) {
-    // No amount => send user back to your registration page
-    header("Location: team.php");
-    exit;
+// Redirect to login if not logged in
+if (!isset($_SESSION['username'])) {
+    header("Location: form.html");
+    exit();
 }
+
+require 'config.php'; // assuming you have Razorpay config here
+
+// Fetch values from session
+$userName = $_SESSION['username'] ?? '';
+$userContact = $_SESSION['phone'] ?? '';
+$userEmail = $_SESSION['email'] ?? '';
+$amount = $_SESSION['registration']['amount'] ?? 0;
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Event Payment</title>
-  <style>
-    :root { --p: #2f7dd1; --p2:#215ca0; --ok:#207227; --err:#b00020; }
-    body { font-family: system-ui, Arial, sans-serif; max-width: 760px; margin:40px auto; padding:0 16px; }
-    .card { border: 1px solid #eee; border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.05); }
-    .row { display: flex; gap: 12px; align-items: center; }
-    button { font-size: 16px; padding: 10px 14px; border-radius: 10px; cursor: pointer; background: var(--p); color: #fff; border: none; }
-    button:disabled { opacity: .6; cursor: not-allowed; }
-    .muted { color: #666; font-size: 14px; }
-    #msg { margin-top:12px; }
-    .ok { color: var(--ok); }
-    .err { color: var(--err); }
-  </style>
+    <meta charset="UTF-8">
+    <title>Aavirbhav Event Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+    </style>
 </head>
 <body>
-  <h1>Pay for Your Event Registration</h1>
-  <div class="card">
-    <div class="row">
-      <button id="payBtn">Pay Now (₹<?php echo (int)$amount; ?>)</button>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="#">Aavirbhav</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item me-3 text-white">
+          Hello, <strong><?php echo htmlspecialchars($userName); ?></strong>
+        </li>
+        <li class="nav-item">
+          <a href="../forms/logout.php" class="btn btn-outline-light btn-sm">Logout</a>
+        </li>
+      </ul>
     </div>
-    <p class="muted">Your registration details will be saved after successful payment.</p>
-    <div id="msg"></div>
   </div>
+</nav>
 
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
-    const payBtn = document.getElementById('payBtn');
-    const msg    = document.getElementById('msg');
+<!-- Main Content -->
+<div class="container mt-5">
+    <div class="card p-4">
+        <h3 class="mb-3">Confirm Your Details</h3>
+        <p><strong>Name:</strong> <?php echo htmlspecialchars($userName); ?></p>
+        <p><strong>Contact:</strong> <?php echo htmlspecialchars($userContact); ?></p>
+        <p><strong>Email:</strong> <?php echo htmlspecialchars($userEmail); ?></p>
+        <p><strong>Amount:</strong> ₹<?php echo number_format($amount, 2); ?></p>
 
-    function showMessage(text, cls='') {
-      msg.className = cls;
-      msg.textContent = text;
+        <button id="payButton" class="btn btn-primary mt-3">Pay Now</button>
+    </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('payButton').onclick = function(e) {
+    fetch('create_order.php', { method: 'POST' })
+    .then(response => response.json())
+    .then(order => {
+        const options = {
+            key: "<?php echo RAZORPAY_KEY_ID; ?>",
+            amount: order.amount, // in paise
+            currency: order.currency,
+            name: "Aavirbhav Payment",
+            image: "../images/aavirbhav.jpg",
+            description: "Payment for Registered Events",
+            order_id: order.id,
+            prefill: {
+                name: <?php echo json_encode($userName); ?>,
+                contact: <?php echo json_encode($userContact); ?>,
+                email: <?php echo json_encode($userEmail); ?>
+            },
+            theme: {
+                color: "#3399cc"
+            },
+            handler: function (response) {
+    // Redirect to verify.php with payment details
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'verify.php';
+
+    const fields = {
+        razorpay_payment_id: response.razorpay_payment_id,
+        razorpay_order_id: response.razorpay_order_id,
+        razorpay_signature: response.razorpay_signature
+    };
+
+    for (const key in fields) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = fields[key];
+        form.appendChild(input);
     }
 
-    payBtn.addEventListener('click', async () => {
-      try {
-        payBtn.disabled = true;
-        showMessage('Creating order…');
+    document.body.appendChild(form);
+    form.submit();
+}
 
-        // 1) Create order on server (uses amount from SESSION)
-        const res = await fetch('create_order.php', { method: 'POST' });
-        const order = await res.json();
-
-        if (!res.ok) {
-          throw new Error(order.error || 'Failed to create order');
-        }
-        if (!order.id) {
-          throw new Error('Server did not return a valid order id');
-        }
-
-        // 2) Open Razorpay Checkout
-        const options = {
-          key: "<?php echo RAZORPAY_KEY_ID; ?>",
-          amount: order.amount,          // in paise
-          currency: order.currency,
-          name: "Event Payment",
-          description: "Payment for Registered Events",
-          order_id: order.id,
-          prefill: {
-            name: <?php echo json_encode($userName); ?>,
-            contact: <?php echo json_encode($userContact); ?>,
-            email: <?php echo json_encode($userEmail); ?>
-          },
-          handler: async function (response) {
-            // 3) Verify signature on server
-            try {
-              const v = await fetch('verify.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(response)
-              });
-              const data = await v.json();
-              if (!v.ok || !data.success) {
-                throw new Error(data.error || 'Verification failed');
-              }
-              alert('Payment successful! Your registration is confirmed.');
-              window.location.href = 'public/success.php';
-            } catch (e) {
-              showMessage('Verification failed: ' + e.message, 'err');
-              payBtn.disabled = false;
-            }
-          },
-          modal: { ondismiss: () => { payBtn.disabled = false; } }
         };
-
         const rzp = new Razorpay(options);
-        rzp.on('payment.failed', function (resp) {
-          showMessage('Payment failed: ' + (resp.error && resp.error.description ? resp.error.description : 'Unknown error'), 'err');
-          payBtn.disabled = false;
-        });
         rzp.open();
-      } catch (e) {
-        showMessage('Error: ' + e.message, 'err');
-        payBtn.disabled = false;
-      }
+        e.preventDefault();
     });
-  </script>
+};
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

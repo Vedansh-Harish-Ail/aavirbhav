@@ -3,31 +3,32 @@ session_start();
 include 'db.php'; // Your DB connection file
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $phone = $_POST['phone'];
-    $clgname = $_POST['clgname'];
-    $email = $_POST['email'];
+    $username = trim($_POST['username']);
+    $phone = trim($_POST['phone']);
+    $clgname = trim($_POST['clgname']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
+    // Validate password match
     if ($password !== $confirm_password) {
-        die("Passwords do not match.");
+        echo "<script>alert('Passwords do not match'); window.history.back();</script>";
+        exit();
     }
 
+    // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
+    // Insert query
     $stmt = $conn->prepare("INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
 
     if ($stmt->execute()) {
-        $_SESSION['username'] = $username;
-        $_SESSION['phone'] = $phone;
-        $_SESSION['clgname'] = $clgname;
-        echo "<script>alert('Registration Done');</script>";
-        header("Location: form.html");
-        exit();
+        echo "<script>alert('Registration Done, Login Now'); window.location.href='form.html';</script>";
     } else {
-        echo "Error: " . $stmt->error;
+        echo "<script>alert('Error: Could not register'); window.history.back();</script>";
     }
+
+    $stmt->close();
 }
 ?>
