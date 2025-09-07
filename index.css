@@ -65,6 +65,11 @@ body {
   letter-spacing: 5px;
 }
 
+.abt{
+  font-family: "Metal Mania", system-ui;
+  letter-spacing: 2px;
+}
+
 .gradient-text1::before,
 .gradient-text1::after 
 {
