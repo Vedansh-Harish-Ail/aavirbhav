@@ -77,6 +77,10 @@ body {
   letter-spacing: 2px;
 }
 
+.main3{
+  letter-spacing: 2px !important;
+}
+
 .gradient-text1::before,
 .gradient-text1::after 
 {
