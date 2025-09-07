@@ -273,6 +273,7 @@ background-position: center;
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
 #about p {
   text-align: justify;
 }
