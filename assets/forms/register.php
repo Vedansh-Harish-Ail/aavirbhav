@@ -2,15 +2,20 @@
 include 'db.php'; // your DB connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['username'];
-    $phone = $_POST['phone'];
-    $clgname = $_POST['clgname'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+     $username = trim($_POST['username']);
+    $phone = trim($_POST['phone']);
+    $clgname = trim($_POST['clgname']);
+    $email = trim($_POST['email']);
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    if ($password !== $confirm_password) {
+        die("❌ Passwords do not match");
+    }
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO users (name, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssss", $name, $phone, $clgname, $email, $password);
+    $stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
 
     if ($stmt->execute()) {
         echo "<script>
