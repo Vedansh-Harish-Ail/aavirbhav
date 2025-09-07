@@ -374,7 +374,7 @@
         if (CONFIG.progressMode === "auto") {
           let p = 0;
           const step = () => {
-            p += Math.floor(Math.random() * 5) + 3;
+            p += Math.floor(Math.random() * 6) + 3;
             window.setLoaderProgress(p);
             if (p < 100) setTimeout(step, 200 + Math.random() * 300);
           };
