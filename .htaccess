@@ -1,1 +1,38 @@
 
+# ----------------------------------------
+# Force PHP Parsing for .php files
+# ----------------------------------------
+AddHandler application/x-httpd-php .php
+AddType application/x-httpd-php .php
+
+# If your host uses version-specific handlers, uncomment and set correct version
+# Example for PHP 8.1:
+# AddHandler application/x-httpd-php81 .php
+
+# ----------------------------------------
+# Default index files
+# ----------------------------------------
+DirectoryIndex index.php index.html
+
+# ----------------------------------------
+# Enable error reporting (for debugging)
+# ----------------------------------------
+php_flag display_errors On
+php_value error_reporting 32767
+
+# ----------------------------------------
+# Enable URL rewriting (pretty URLs)
+# ----------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Redirect to index.php if file/folder not found
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php [L,QSA]
+</IfModule>
+
+# ----------------------------------------
+# Security: Prevent directory listing
+# ----------------------------------------
+Options -Indexes
