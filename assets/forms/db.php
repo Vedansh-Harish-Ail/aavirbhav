@@ -1,8 +1,8 @@
 <?php
 // Database configuration
-$servername = "localhost"; // Change if not running locally
-$username   = "root";       // Your MySQL username
-$password   = "Ox^j[oix*5";       // Your MySQL password
+$servername = "localhost";  // Change if not running locally
+$username   = "u223469901_aavirbhav";       // Your MySQL username
+$password   = "Ox^j[oix*5";           // Your MySQL password
 $dbname     = "u223469901_aavirbhav";    // Your database name
 
 // Create connection
