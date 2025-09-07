@@ -36,6 +36,9 @@ $participants_data = json_decode($registration['participants_json'], true) ?? []
     <meta charset="UTF-8">
     <title>Payment Receipt - Game of Thrones Theme</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="../../images/favicon.png">
+  <link rel="apple-touch-icon" href="../../images/favicon.png">
     
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
