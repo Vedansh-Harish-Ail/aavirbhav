@@ -273,6 +273,9 @@ background-position: center;
   from { opacity: 0; }
   to { opacity: 1; }
 }
+#about p {
+  text-align: justify;
+}
 
 /* Ensure uniform alignment inside event cards */
 .card-hover .p-6 {
