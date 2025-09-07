@@ -8,9 +8,16 @@
     font-family: 'Poppins', sans-serif;
 
 }
-.main2 ,.main3,.spe
+.main3,.spe
 {
    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/bgimg.jpg);
+ background-size: cover;
+background-position: center;
+}
+
+.main2
+{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/background1.jpg);
  background-size: cover;
 background-position: center;
 }
@@ -220,13 +227,18 @@ body {
     .event-timeline > div {
         padding-left: 2rem;
     }
-    .main2 ,.main3,.spe
+.main3,.spe
 {
    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/bgimg.jpg);
  background-size: cover;
 background-position: center;
-
 }
+
+.main2{
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(assets/images/background1.jpg);
+ background-size: cover;
+}
+
 .evt{
   width: 100%;
   margin-left: 0px;

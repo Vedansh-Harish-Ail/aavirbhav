@@ -11,12 +11,12 @@
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       min-height: 100vh;
+      padding-top: 70px; /* avoid navbar overlap */
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 1rem;
     }
-
     .form-container {
       width: 100%;
       max-width: 420px;
@@ -27,39 +27,17 @@
       animation: fadeInUp 0.6s ease-in-out;
       backdrop-filter: blur(6px);
     }
-
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    .nav-tabs { border-bottom: none; }
-    .nav-tabs .nav-link {
-      font-weight: 600;
-      border-radius: 8px 8px 0 0;
-      color: #555;
-      transition: background 0.2s ease, color 0.2s ease;
+    .btn {
+      background-color: #2E1F1B;
+      font-weight: bold;
     }
-    .nav-tabs .nav-link.active {
-      background: #2E1F1B;
-      color: #fff;
+    .btn:hover {
+      background-color: #392c29;
     }
-
-    .form-floating > label {
-      transition: all 0.2s ease;
-      color: #6c757d;
-    }
-    .form-floating .form-control:focus ~ label,
-    .form-floating .form-control:not(:placeholder-shown) ~ label {
-      color: #0d6efd;
-    }
-
-    .input-with-toggle {
-      display: flex;
-      align-items: stretch;
-      gap: 0.5rem;
-    }
-    .input-with-toggle .form-floating { flex: 1; }
     .password-toggle {
       background: transparent;
       border: none;
@@ -74,23 +52,24 @@
     }
     .password-toggle:hover { background: rgba(0,0,0,0.05); }
     .password-toggle:focus { outline: 2px solid rgba(13,110,253,0.25); outline-offset: 2px; }
-
-    .btn{
-      background-color: #2E1F1B;
-      font-weight: bold;
-    }
-
-    .btn:hover{
-      background-color: #392c29;
-    }
-
-    @media (max-width: 576px) {
-      .form-container { padding: 1.5rem; }
-      .password-toggle { padding: 0 0.5rem; font-size: 1.05rem; }
-    }
   </style>
 </head>
 <body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-fluid">
+      <a class=" nav navbar-brand" href="index.html">Aavirbhav</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <a href="index.html" class="btn btn-outline-light">Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Form Container -->
   <div class="form-container">
     <ul class="nav nav-tabs mb-3" id="formTabs">
       <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#login">Login</a></li>
@@ -104,18 +83,14 @@
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="email" id="loginEmail" placeholder="Email" required>
             <label for="loginEmail">Email</label>
-            <div class="invalid-feedback">Please enter a valid email.</div>
           </div>
-
-          <div class="mb-3 input-with-toggle">
-            <div class="form-floating">
+          <div class="mb-3 d-flex">
+            <div class="form-floating flex-fill">
               <input type="password" class="form-control" name="password" id="loginPassword" placeholder="Password" required>
               <label for="loginPassword">Password</label>
-              <div class="invalid-feedback">Password is required.</div>
             </div>
             <button type="button" class="password-toggle" onclick="togglePassword('loginPassword', this)">👁</button>
           </div>
-
           <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
       </div>
@@ -126,45 +101,33 @@
           <div class="form-floating mb-3">
             <input type="text" class="form-control" name="username" id="regName" placeholder="Name" required>
             <label for="regName">Name</label>
-            <div class="invalid-feedback">Name must be at least 3 letters and contain only alphabets.</div>
           </div>
-
           <div class="form-floating mb-3">
             <input type="tel" class="form-control" name="phone" id="regPhone" placeholder="Phone Number" required>
             <label for="regPhone">Phone Number</label>
-            <div class="invalid-feedback">Enter a valid 10-digit phone number.</div>
           </div>
-
           <div class="form-floating mb-3">
             <input type="text" class="form-control" name="clgname" id="regClg" placeholder="College Name" required>
             <label for="regClg">College Name</label>
-            <div class="invalid-feedback">College name is required.</div>
           </div>
-
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="email" id="regEmail" placeholder="Email" required>
             <label for="regEmail">Email</label>
-            <div class="invalid-feedback">Enter a valid email address.</div>
           </div>
-
-          <div class="mb-3 input-with-toggle">
-            <div class="form-floating">
+          <div class="mb-3 d-flex">
+            <div class="form-floating flex-fill">
               <input type="password" class="form-control" name="password" id="regPassword" placeholder="Password" required>
               <label for="regPassword">Password</label>
-              <div class="invalid-feedback">Password must be at least 8 chars with uppercase, lowercase, number, and special char.</div>
             </div>
             <button type="button" class="password-toggle" onclick="togglePassword('regPassword', this)">👁</button>
           </div>
-
-          <div class="mb-3 input-with-toggle">
-            <div class="form-floating">
+          <div class="mb-3 d-flex">
+            <div class="form-floating flex-fill">
               <input type="password" class="form-control" name="confirm_password" id="regConfirm" placeholder="Confirm Password" required>
               <label for="regConfirm">Confirm Password</label>
-              <div class="invalid-feedback">Passwords do not match.</div>
             </div>
             <button type="button" class="password-toggle" onclick="togglePassword('regConfirm', this)">👁</button>
           </div>
-
           <button type="submit" class="btn btn-success w-100">Register</button>
         </form>
       </div>
@@ -179,37 +142,6 @@
       field.type = field.type === 'password' ? 'text' : 'password';
       btn.textContent = field.type === 'password' ? '👁' : '🙈';
     }
-
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
-      let valid = true;
-
-      const name = document.getElementById('regName');
-      if (!/^[A-Za-z\s]{3,}$/.test(name.value.trim())) {
-        name.classList.add('is-invalid'); valid = false;
-      } else { name.classList.remove('is-invalid'); name.classList.add('is-valid'); }
-
-      const phone = document.getElementById('regPhone');
-      if (!/^\d{10}$/.test(phone.value.trim())) {
-        phone.classList.add('is-invalid'); valid = false;
-      } else { phone.classList.remove('is-invalid'); phone.classList.add('is-valid'); }
-
-      const email = document.getElementById('regEmail');
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
-        email.classList.add('is-invalid'); valid = false;
-      } else { email.classList.remove('is-invalid'); email.classList.add('is-valid'); }
-
-      const password = document.getElementById('regPassword');
-      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/.test(password.value)) {
-        password.classList.add('is-invalid'); valid = false;
-      } else { password.classList.remove('is-invalid'); password.classList.add('is-valid'); }
-
-      const confirm = document.getElementById('regConfirm');
-      if (confirm.value !== password.value || confirm.value === '') {
-        confirm.classList.add('is-invalid'); valid = false;
-      } else { confirm.classList.remove('is-invalid'); confirm.classList.add('is-valid'); }
-
-      if (!valid) e.preventDefault();
-    });
   </script>
 </body>
 </html>
