@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert query
-    $sql = $conn->prepare("INSERT INTO users (username, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
+    $sql = $conn->prepare("INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
     $sql->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
 
     if ($sql->execute()) {
