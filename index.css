@@ -247,7 +247,7 @@ background-position: center;
   text-align: center;
 }
 .psmall{
-  font-size: 20px;
+  font-size: 20px !important;
 }
 }
 
