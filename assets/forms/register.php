@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO registration (name, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (name, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssss", $name, $phone, $clgname, $email, $password);
 
