@@ -1,53 +1,49 @@
 <?php
-session_start();
-include 'db.php'; // Your DB connection file
-
-// Enable full error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+include 'db.php'; // your DB connection
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = trim($_POST['username']);
-    $phone = trim($_POST['phone']);
-    $clgname = trim($_POST['clgname']);
-    $email = trim($_POST['email']);
-    $password = $_POST['password'];
-    $confirm_password = $_POST['confirm_password'];
+    $name = $_POST['username'];
+    $phone = $_POST['phone'];
+    $clgname = $_POST['clgname'];
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    // Validate password match
-    if ($password !== $confirm_password) {
-        die("❌ Passwords do not match");
-    }
+    $sql = "INSERT INTO registration (name, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssss", $name, $phone, $clgname, $email, $password);
 
-    // Check if DB connection is OK
-    if (!isset($conn) || $conn->connect_error) {
-        die("❌ Database connection failed: " . ($conn->connect_error ?? 'Connection variable not set'));
-    }
-
-    // Hash password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Prepare statement
-    $stmt = $conn->prepare("INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
-    if (!$stmt) {
-        die("❌ SQL Prepare failed: " . $conn->error);
-    }
-
-    // Bind params
-    if (!$stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password)) {
-        die("❌ Bind failed: " . $stmt->error);
-    }
-
-    // Execute query
     if ($stmt->execute()) {
-        echo "✅ Registration successful!";
+        echo "<script>
+            document.body.innerHTML += `<div id='successAlert' style=\"position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#4caf50;color:#fff;padding:15px 25px;border-radius:8px;font-size:16px;z-index:9999;animation:fadeInDown 0.5s ease-out;\">
+                ✅ Registration Done! Please login.
+            </div>`;
+            setTimeout(function(){
+                window.location.href='form.html';
+            }, 2000);
+        </script>
+        <style>
+            @keyframes fadeInDown {
+                from { opacity: 0; transform: translate(-50%, -20px); }
+                to { opacity: 1; transform: translate(-50%, 0); }
+            }
+        </style>";
     } else {
-        die("❌ Execute failed: " . $stmt->error);
+        echo "<script>
+            document.body.innerHTML += `<div id='errorAlert' style=\"position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#f44336;color:#fff;padding:15px 25px;border-radius:8px;font-size:16px;z-index:9999;animation:shake 0.3s ease-in-out 2;\">
+                ❌ Registration failed! Please try again.
+            </div>`;
+        </script>
+        <style>
+            @keyframes shake {
+                0% { transform: translate(-50%, 0); }
+                25% { transform: translate(-50%, -5px); }
+                50% { transform: translate(-50%, 5px); }
+                75% { transform: translate(-50%, -5px); }
+                100% { transform: translate(-50%, 0); }
+            }
+        </style>";
     }
-
     $stmt->close();
     $conn->close();
-} else {
-    die("❌ Invalid request method");
 }
+?>
