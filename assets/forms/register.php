@@ -2,10 +2,10 @@
 session_start();
 include 'db.php'; // Your DB connection file
 
+// Enable full error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
@@ -17,23 +17,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate password match
     if ($password !== $confirm_password) {
-        echo "<script>alert('Passwords do not match'); window.history.back();</script>";
-        exit();
+        die("❌ Passwords do not match");
+    }
+
+    // Check if DB connection is OK
+    if (!isset($conn) || $conn->connect_error) {
+        die("❌ Database connection failed: " . ($conn->connect_error ?? 'Connection variable not set'));
     }
 
     // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert query
+    // Prepare statement
     $stmt = $conn->prepare("INSERT INTO users (username, number, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
+    if (!$stmt) {
+        die("❌ SQL Prepare failed: " . $conn->error);
+    }
 
+    // Bind params
+    if (!$stmt->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password)) {
+        die("❌ Bind failed: " . $stmt->error);
+    }
+
+    // Execute query
     if ($stmt->execute()) {
-        echo "<script>alert('Registration Done, Login Now'); window.location.href='form.html';</script>";
+        echo "✅ Registration successful!";
     } else {
-        echo "<script>alert('Error: Could not register'); window.history.back();</script>";
+        die("❌ Execute failed: " . $stmt->error);
     }
 
     $stmt->close();
+    $conn->close();
+} else {
+    die("❌ Invalid request method");
 }
-?>
