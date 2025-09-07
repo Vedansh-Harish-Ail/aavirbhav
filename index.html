@@ -3,133 +3,323 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aavirbhav - IT Fest</title>
+  <title>Aavirbhav - IT Festival</title>
 
-
-  <!-- Tailwind for quick utility styling -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Epic medieval font -->
+
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
-  
-   <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <link rel="apple-touch-icon" href="assets/images/favicon.png">
 
-  <!-- Basic Meta -->
-  <title>Avirbhav 2025</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/tile_pic_1.png">
+  <link rel="apple-touch-icon" href="assets/images/A.png">
+
+  <!-- Meta -->
   <meta name="description" content="Aavirbhav - National Level IT Fest">
-
-  <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-  <meta property="og:title" content="Aavirbhav 2025">
-  <meta property="og:description" content="National Level IT Fest, Explore the exciting competitions and activities we have planned!">
+  <meta property="og:title" content="Aavirbhav">
+  <meta property="og:description" content="Aavirbhav 2025 - National Level IT Fest">
   <meta property="og:image" content="assets/images/aavirbhav.jpg">
   <meta property="og:url" content="https://aavirbhav.tech">
   <meta property="og:type" content="website">
 
-  
   <style>
     :root {
-      --gold:#75670d;
-      --metal:#d8d3cc;
+      --gold: #75670d;
+      --metal: #d8d3cc;
+    }                                                                   
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      font-family: 'Cinzel Decorative', serif;
     }
-    body,html{
-      margin:0; padding:0; height:100%; width:100%;
-      font-family:'Cinzel Decorative', serif;
-      
+     
+    /* ✅ Welcome Splash Screen Styles */
+.welcome-screen {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  z-index: 50;
+}
+
+.welcome-container {
+  max-width: 90%;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .welcome-container {
+    max-width: 600px;
+  }
+}
+
+/* Title Styling */
+.welcome-title {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .welcome-title {
+    font-size: 2.75rem; /* slightly larger than text-4xl */
+  }
+}
+@media (min-width: 768px) {
+  .welcome-title {
+    font-size: 3.5rem; /* text-5xl+ */
+  }
+}
+@media (min-width: 1024px) {
+  .welcome-title {
+    font-size: 4.25rem; /* large desktop */
+  }
+}
+
+/* Highlighted word (like "Aavirbhav") */
+.highlight {
+  color: #facc15; /* Tailwind yellow-500 */
+}
+
+/* Subtitle */
+.welcome-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .welcome-subtitle {
+    font-size: 1.375rem;
+  }
+}
+@media (min-width: 768px) {
+  .welcome-subtitle {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .welcome-subtitle {
+    font-size: 1.625rem;
+  }
+}
+
+/* Logo Image */
+.welcome-logo {
+  display: block;
+  margin: 0 auto 2.5rem auto;
+  width: 240px; /* bigger than before */
+  max-width: 95vw;
+  height: auto;
+  object-fit: contain;
+  transition: filter 0.4s ease, transform 0.3s ease;
+}
+
+.welcome-logo:hover {
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 12px rgba(212, 175, 55, 0.4)); /* golden glow */
+  transform: scale(1.05);
+}
+
+@media (min-width: 768px) {
+  .welcome-logo {
+    width: 280px;
+  }
+}
+@media (min-width: 1024px) {
+  .welcome-logo {
+    width: 320px;
+  }
+}
+.welcome-button {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+
+  padding: 0.65rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Cinzel', serif; /* Medieval-like font */
+  letter-spacing: 1px;
+
+  color: #f9f6f2;
+  background-color: #2e2e2e; /* Dark iron */
+  border: 2px solid #a8891e; /* Golden border */
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(168, 137, 30, 0.1);
+}
+
+.welcome-button:hover {
+  background-color: #3b2f13;       /* Dark gold / brown */
+  color: #f0d88b;
+  border-color: #d4af37;           /* Brighter gold */
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.5);
+  transform: scale(1.03);
+}
+
+@media (min-width: 640px) {
+  .welcome-button {
+    font-size: 1.1rem;
+    width: auto;
+  }
+}
+
+
+.welcome-button:hover {
+  background-color: #b45309; /* Tailwind yellow-700 */
+}
+
+    /* background video and overlay */
+
+    .bg-video-wrap {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
     }
 
-    /* Background video */
-    .bg-video-wrap{position:fixed; inset:0; overflow:hidden; z-index:-1}
-    .bg-video{
-      position:absolute; min-width:100%; min-height:100%;
-      width:auto; height:auto; top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      object-fit:cover;
-      filter:brightness(0.55) contrast(1.05);
-    }
-    .overlay{
-      position:absolute; inset:0;
-      background:radial-gradient(circle at center, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
+    .bg-video {
+      position: absolute;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.55) contrast(1.05);
     }
 
-    /* Centered Logo + Title */
-    .content{
-      position:relative;
-      z-index:2;
-      height:100%;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      gap:1rem;
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
     }
-    .logo{
-      width:min(420px,70vw);
-      height:auto;
-      filter:drop-shadow(0 8px 20px rgba(0,0,0,.7));
+
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
     }
-    /* Bottom loading bar */
-    .loading-wrap{
-        position:fixed; bottom:0; left:0; width:100%;
-        padding:0.8rem 1.5rem;
-        background:transparent;
-        backdrop-filter:none;
-        }
-    .progress{
-      width:100%; height:14px;
-      background:rgba(255,255,255,0.15);
-      border-radius:6px; overflow:hidden;
+
+    .logo {
+      width: min(420px, 70vw);
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .7));
     }
-    .bar{
-      height:100%; width:0%;
-      background:linear-gradient(var(--gold));
-      transition:width .25s linear;
+
+    .loading-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.8rem 1.5rem;
+      background: transparent;
+      backdrop-filter: none;
     }
-    .percent-text{
-      text-align:right;
-      font-size:.9rem;
-      margin-top:4px;
-      color:#ddd;
+
+    .progress {
+      width: 100%;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(var(--gold));
+      transition: width 0.25s linear;
+    }
+
+    .percent-text {
+      text-align: right;
+      font-size: 0.9rem;
+      margin-top: 4px;
+      color: #ddd;
     }
 
     .got-quote {
-  margin-top:.6rem;
-  text-align:center;
-  font-style:italic;
-  font-size: clamp(1rem, 4vw, 2.4rem);
-  color:#c0a464f4;
-}
-
+      margin-top: .6rem;
+      text-align: center;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 2.4rem);
+      color: #c0a464f4;
+    }
   </style>
 </head>
 <body>
 
+<!-- ✅ Welcome Splash Screen (HTML Only) -->
+<div id="welcomeScreen" class="welcome-screen">
+  <div class="welcome-container">
+    <h1 class="welcome-title">
+      Welcome to
+    </h1>
+      <img src="assets/images/logo.png" alt="Aavirbhav Logo" class="welcome-logo" />
+
+    <p class="welcome-subtitle">
+      National Level IT Fest 2025
+    </p>
+    <button onclick="startExperience()" class="welcome-button">
+      Enter Festival
+    </button>
+  </div>
+</div>
+
+
   <!-- Background Video -->
-  <div class="bg-video-wrap">
+  <div id="videoContainer" class="bg-video-wrap opacity-0 transition-opacity duration-500">
     <video id="bgVideo" class="bg-video" autoplay muted loop playsinline preload="auto"></video>
     <div class="overlay"></div>
   </div>
 
-  <!-- Centered content -->
-  <div class="content">
-  <!-- <img src="assets/images/logo.png" alt="AAVIRBHAV logo" class="logo"/>-->
+  <!-- Main Content -->
+  <div id="mainContent" class="content hidden">
+    <!-- Optional logo or title -->
+    <!-- <img src="assets/images/logo.png" alt="AAVIRBHAV logo" class="logo"/> -->
   </div>
 
-  <!-- Bottom loading -->
-  <div class="loading-wrap">
-<div class="got-quote text-[1.2rem] sm:text-[1.6rem] md:text-[2rem] lg:text-[2.4rem]" id="quote"><b>“Loading....”</b></div>
-        <div class="flex items-center gap-2 mt-2">
-        <div class="progress flex-1"><div id="bar" class="bar"></div></div>
-        <div class="percent-text" id="percent">0%</div>
-</div>
-
+  <!-- Loading Bar -->
+  <div id="loaderBar" class="loading-wrap hidden">
+    <div class="got-quote text-[1.2rem] sm:text-[1.6rem] md:text-[2rem] lg:text-[2.4rem]" id="quote"><b>“Loading....”</b></div>
+    <div class="flex items-center gap-2 mt-2">
+      <div class="progress flex-1"><div id="bar" class="bar"></div></div>
+      <div class="percent-text" id="percent">0%</div>
+    </div>
   </div>
 
+  <!-- JavaScript -->
   <script>
     const CONFIG = {
-      nextUrl:"home.html",
-      autoRedirect:true,
-      progressMode:"auto"
+      nextUrl: "home.html",
+      autoRedirect: true,
+      progressMode: "auto"
     };
 
     const bar = document.getElementById("bar");
@@ -140,63 +330,66 @@
       "“Winter is Coming...”",
       "“Fire and Blood.”",
       "“The North Remembers.”",
-      "“Valar Morghulis.”",
+      ///"“Valar Morghulis.”",
       "“What is Dead May Never Die.”",
-     // "“Hold the Door...”",
       "“When you play the game of thrones, you win or you die.”",
       ""
     ];
 
-    // Manual API0
-    window.setLoaderProgress = function(p){
-      const clamped = Math.max(0,Math.min(100,Math.round(p)));
-      bar.style.width = clamped+"%";
-      percent.textContent = clamped+"%";
-
-      // Change quote at intervals
-      const idx = Math.min(quotes.length-1, Math.floor(clamped/ (100/quotes.length)));
+    // Set loader progress manually or auto
+    window.setLoaderProgress = function(p) {
+      const clamped = Math.max(0, Math.min(100, Math.round(p)));
+      bar.style.width = clamped + "%";
+      percent.textContent = clamped + "%";
+      const idx = Math.min(quotes.length - 1, Math.floor(clamped / (100 / quotes.length)));
       quote.textContent = quotes[idx];
-
-      if(clamped>=100 && CONFIG.autoRedirect){
-        setTimeout(()=>location.href=CONFIG.nextUrl,800);
+      if (clamped >= 100 && CONFIG.autoRedirect) {
+        setTimeout(() => location.href = CONFIG.nextUrl, 800);
       }
     };
 
-    // Auto progress simulation
-    if(CONFIG.progressMode==="auto"){
-      let p=0;
-      const step=()=>{
-        p += Math.floor(Math.random()*5)+3; // 3-9% steps
-        window.setLoaderProgress(p);
-        if(p<100) setTimeout(step,200+Math.random()*300);
-      };
-      setTimeout(step,400);
+    // Set video source
+    function setVideoSource() {
+      const video = document.getElementById("bgVideo");
+      if (window.innerWidth <= 768) {
+        video.src = "assets/loading/phone_loader-background.mp4";
+      } else {
+        video.src = "assets/loading/front_loader_page.mp4";
+      }
+      video.load(); // preload video
     }
 
-    // video adjust
-      function setVideoSource() {
-    const video = document.getElementById("bgVideo");
+    // Start the experience
+    function startExperience() {
+      document.getElementById("welcomeScreen").classList.add("hidden");
+      const videoContainer = document.getElementById("videoContainer");
+      videoContainer.classList.remove("opacity-0");
 
-    // Pick source based on screen width
-    if (window.innerWidth <= 768) {
-      
-      //for phone 
-      video.src = "assets/loading/phone_loader-background.mp4";
-    } else {
+      // Wait for fade-in
+      setTimeout(() => {
+        document.getElementById("mainContent").classList.remove("hidden");
+        document.getElementById("loaderBar").classList.remove("hidden");
 
-    //for desktop
-      video.src = "assets/loading/front_loader_page.mp4";
+        // Start progress animation
+        if (CONFIG.progressMode === "auto") {
+          let p = 0;
+          const step = () => {
+            p += Math.floor(Math.random() * 6) + 3;
+            window.setLoaderProgress(p);
+            if (p < 100) setTimeout(step, 200 + Math.random() * 300);
+          };
+          setTimeout(step, 400);
+        }
+      }, 300); // wait for opacity transition
     }
 
-    video.load();   // reload with the new source
-    video.play();   // try to autoplay
-  }
+    // Init on page load
+    setVideoSource();
 
-  // Run once on page load
-  setVideoSource();
-
-  // Update on resize
-  window.addEventListener("resize", setVideoSource);
+    // Update video if screen size changes
+    window.addEventListener("resize", () => {
+      setVideoSource();
+    });
   </script>
 
 </body>
