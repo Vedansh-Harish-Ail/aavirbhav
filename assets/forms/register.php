@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Duplicate email check
-    $check = $conn->prepare("SELECT email FROM registration WHERE email = ?");
+    $check = $conn->prepare("SELECT email FROM users WHERE email = ?");
     $check->bind_param("s", $email);
     $check->execute();
     $check->store_result();
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Insert query
-    $sql = $conn->prepare("INSERT INTO registration (username, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
+    $sql = $conn->prepare("INSERT INTO users (username, phone, clgname, email, password) VALUES (?, ?, ?, ?, ?)");
     $sql->bind_param("sssss", $username, $phone, $clgname, $email, $hashed_password);
 
     if ($sql->execute()) {
