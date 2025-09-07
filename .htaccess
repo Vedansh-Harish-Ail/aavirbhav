@@ -1,4 +1,6 @@
-
+AddType application/xml .xml
+AddType application/json .json
+AddType text/css .css
 # ----------------------------------------
 # Force PHP Parsing for .php files
 # ----------------------------------------
